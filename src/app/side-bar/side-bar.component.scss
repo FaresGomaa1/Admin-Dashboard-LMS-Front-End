@@ -1,0 +1,71 @@
+// Define variables for the sidebar background color, text color, icon color, and icon size
+$sidebar-bg-color: #ffffff;
+$sidebar-text-color: #000000;
+$sidebar-icon-color: #babdc1;
+$sidebar-icon-size: 30px;
+
+// Define a mixin to apply styles to the nav-link elements
+@mixin nav-link-styles {
+  color: $sidebar-text-color;
+
+  &:hover {
+    background-color: darken($sidebar-bg-color, 5%);
+  }
+
+  .menu-icon {
+    color: $sidebar-icon-color;
+    font-size: $sidebar-icon-size;
+  }
+}
+
+// Define a mixin to apply styles to the nav-profile elements
+@mixin nav-profile-styles {
+  .nav-profile-image {
+    img {
+      height: $sidebar-icon-size;
+      width: $sidebar-icon-size;
+    }
+  }
+
+  .nav-profile-badge {
+    color: $sidebar-icon-color;
+    font-size: $sidebar-icon-size;
+  }
+}
+
+// Define a class for the sidebar
+.sidebar {
+  background-color: $sidebar-bg-color;
+
+  // Apply the nav-link styles to all nav-link elements
+  .nav-link {
+    @include nav-link-styles();
+  }
+
+  // Apply the nav-profile styles to the nav-profile element
+  .nav-profile {
+    @include nav-profile-styles();
+  }
+
+  // Define a class for the login-status element
+  .login-status {
+    // Set the height, width, border-radius, and display properties for the login-status element
+    height: $sidebar-icon-size;
+    width: $sidebar-icon-size;
+    border-radius: 50%;
+    display: inline-block;
+
+    // Define variations for the online, offline, and busy statuses
+    &.online {
+      background-color: green;
+    }
+
+    &.offline {
+      background-color: red;
+    }
+
+    &.busy {
+      background-color: yellow;
+    }
+  }
+}
