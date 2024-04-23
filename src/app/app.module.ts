@@ -15,10 +15,8 @@ import { ViewCoursesComponent } from './courses/view-courses/view-courses.compon
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
-
-
-
-
+import { EventsComponent } from './events/events.component';
+import { EventFormComponent } from './event-form/event-form.component';
 
 
 
@@ -36,9 +34,8 @@ import { FormsModule } from '@angular/forms';
     GroupsComponent,
     ViewCoursesComponent,
     GroupDetailsComponent,
-
- 
-   
+    EventsComponent,
+    EventFormComponent,
     
   ],
   imports: [

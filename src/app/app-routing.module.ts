@@ -8,6 +8,8 @@ import { InstructorsComponent } from './instructors/instructors.component';
 import { GroupsComponent } from './groups/groups.component';
 import { ViewCoursesComponent } from './courses/view-courses/view-courses.component';
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { EventsComponent } from './events/events.component';
 
 
 
@@ -21,7 +23,9 @@ const routes: Routes = [
   { path: 'groups', component: GroupsComponent },
   { path: 'view_course', component: ViewCoursesComponent },
   { path: 'view_group', component: GroupDetailsComponent },
+  { path: 'events', component: EventsComponent },
 
+  
 ];  
 
 @NgModule({

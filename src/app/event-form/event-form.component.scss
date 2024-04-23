@@ -1,0 +1,88 @@
+.card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+  
+  .card-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-gradient-primary {
+    background: linear-gradient(to right, #007bff, #005bea);
+    color: white;
+  }
+  
+  .btn-gradient-primary:hover {
+    background: linear-gradient(to right, #005bea, #007bff);
+  }
+  
+  .btn-light {
+    background-color: #ddd;
+    color: #333;
+  }
+  
+  .btn-light:hover {
+    background-color: #ccc;
+  }
+  
+  @media (min-width: 768px) {
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  
+    .form-group > * {
+      flex: 1 0 48%;
+      margin-bottom: 20px;
+    }
+  
+    .form-group:last-child {
+      justify-content: flex-end;
+    }
+  }
+  body {
+    overflow: hidden;
+  }
+  
+  .blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 0;
+  }

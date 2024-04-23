@@ -1,0 +1,36 @@
+<div class="blur">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Event Details</h4>
+      <form class="forms-sample" (ngSubmit)="submitEvent()">
+        <div class="form-group">
+          <label for="eventTitle">Event Title</label>
+          <input type="text" class="form-control" id="eventTitle" name="eventTitle" [(ngModel)]="event.title" placeholder="Event Title" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="eventDescription">Description</label>
+          <textarea class="form-control" id="eventDescription" name="eventDescription" [(ngModel)]="event.description" placeholder="Describe your event" required></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label for="eventVisibility">Visibility</label>
+          <select class="form-control" id="eventVisibility" name="eventVisibility" [(ngModel)]="event.showTo">
+            <option value="Everyone">Everyone</option>
+            <option value="Private">Private</option>
+            <option value="Friends">Friends</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="eventHour">Hour</label>
+          <input type="time" class="form-control" id="eventHour" name="eventHour" [(ngModel)]="event.hour" placeholder="Event Hour" required>
+        </div>
+  
+        <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+        <button type="button" class="btn btn-light" (click)="cancel()">Cancel</button>
+      </form>
+    </div>
+  </div>
+  </div>
+  

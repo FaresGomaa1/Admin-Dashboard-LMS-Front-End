@@ -17,12 +17,13 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
     var footer = $('.footer');
     var sidebar = $('.sidebar');
 
-    //Add active class to nav-link based on url dynamically
-    //Active class can be hard coded directly in html file also as required
+    // Remove the following line to hide the image in the sidebar
+    $('.sidebar .user-profile img').removeClass('img-xs rounded-circle');
 
+    // Add active class to nav-link based on url dynamically
     function addActiveClass(element) {
+      console.log(element);
       if (current === "") {
-        //for root url
         if (element.attr('href').indexOf("index.html") !== -1) {
           element.parents('.nav-item').last().addClass('active');
           if (element.parents('.sub-menu').length) {
@@ -31,7 +32,6 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
           }
         }
       } else {
-        //for other url
         if (element.attr('href').indexOf(current) !== -1) {
           element.parents('.nav-item').last().addClass('active');
           if (element.parents('.sub-menu').length) {
@@ -49,33 +49,28 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
     $('.nav li a', sidebar).each(function() {
       var $this = $(this);
       addActiveClass($this);
-    })
-
+    });
     $('.horizontal-menu .nav li a').each(function() {
       var $this = $(this);
       addActiveClass($this);
-    })
+    });
 
-    //Close other submenu in sidebar on opening any
-
+    // Close other submenu in sidebar on opening any
     sidebar.on('show.bs.collapse', '.collapse', function() {
       sidebar.find('.collapse.show').collapse('hide');
     });
 
-
-    //Change sidebar and content-wrapper height
-    applyStyles();
-
+    // Change sidebar and content-wrapper height
     function applyStyles() {
-      //Applying perfect scrollbar
-      if (!body.hasClass("rtl")) {
-        if (body.hasClass("sidebar-fixed")) {
-          var fixedSidebarScroll = new PerfectScrollbar('#sidebar .nav');
-        }
+      console.log(body);
+      if (body.hasClass("sidebar-fixed")) {
+        var fixedSidebarScroll = new PerfectScrollbar('#sidebar .nav');
       }
     }
+    applyStyles();
 
     $('[data-toggle="minimize"]').on("click", function() {
+      console.log(body);
       if ((body.hasClass('sidebar-toggle-display')) || (body.hasClass('sidebar-absolute'))) {
         body.toggleClass('sidebar-hidden');
       } else {
@@ -83,12 +78,11 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
       }
     });
 
-    //checkbox and radios
     $(".form-check label,.form-radio label").append('<i class="input-helper"></i>');
 
-    //fullscreen
-    $("#fullscreen-button").on("click", function toggleFullScreen() {
-      if ((document.fullScreenElement !== undefined && document.fullScreenElement === null) || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) || (document.mozFullScreen !== undefined && !document.mozFullScreen) || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+    $("#fullscreen-button").on("click", function() {
+      console.log(document.fullScreenElement);
+      if (!document.fullScreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
         if (document.documentElement.requestFullScreen) {
           document.documentElement.requestFullScreen();
         } else if (document.documentElement.mozRequestFullScreen) {
@@ -99,46 +93,45 @@ var lightColor = getComputedStyle(document.body).getPropertyValue('--light');
           document.documentElement.msRequestFullscreen();
         }
       } else {
-        if (document.cancelFullScreen) {
-          document.cancelFullScreen();
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
         } else if (document.mozCancelFullScreen) {
           document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-          document.webkitCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
         } else if (document.msExitFullscreen) {
           document.msExitFullscreen();
         }
       }
-    })
-    if ($.cookie('purple-free-banner')!="true") {
-      document.querySelector('#proBanner').classList.add('d-flex');
-      document.querySelector('.navbar').classList.remove('fixed-top');
-    }
-    else {
-      document.querySelector('#proBanner').classList.add('d-none');
-      document.querySelector('.navbar').classList.add('fixed-top');
-    }
-    
-    if ($( ".navbar" ).hasClass( "fixed-top" )) {
-      document.querySelector('.page-body-wrapper').classList.remove('pt-0');
-      document.querySelector('.navbar').classList.remove('pt-5');
-    }
-    else {
-      document.querySelector('.page-body-wrapper').classList.add('pt-0');
-      document.querySelector('.navbar').classList.add('pt-5');
-      document.querySelector('.navbar').classList.add('mt-3');
-      
-    }
-    document.querySelector('#bannerClose').addEventListener('click',function() {
-      document.querySelector('#proBanner').classList.add('d-none');
-      document.querySelector('#proBanner').classList.remove('d-flex');
-      document.querySelector('.navbar').classList.remove('pt-5');
-      document.querySelector('.navbar').classList.add('fixed-top');
-      document.querySelector('.page-body-wrapper').classList.add('proBanner-padding-top');
-      document.querySelector('.navbar').classList.remove('mt-3');
-      var date = new Date();
-      date.setTime(date.getTime() + 24 * 60 * 60 * 1000); 
-      $.cookie('purple-free-banner', "true", { expires: date });
     });
+
+    var proBanner = document.querySelector('#proBanner');
+    if (proBanner) {
+      proBanner.classList.add('d-flex');
+    }
+
+    var bannerCloseButton = document.querySelector('#bannerClose');
+    if (bannerCloseButton) {
+        bannerCloseButton.addEventListener('click', function() {
+            var proBanner = document.querySelector('#proBanner');
+            if (proBanner) {
+                proBanner.classList.add('d-none');
+                proBanner.classList.remove('d-flex');
+            }
+            var pageBodyWrapper = document.querySelector('.page-body-wrapper');
+            if (pageBodyWrapper) {
+                pageBodyWrapper.classList.add('proBanner-padding-top');
+            }
+            var navbar = document.querySelector('.navbar');
+            if (navbar) {
+                navbar.classList.add('fixed-top');
+                navbar.classList.remove('pt-5');
+                navbar.classList.remove('mt-3');
+            }
+            var date = new Date();
+            date.setTime(date.getTime() + 24 * 60 * 60 * 1000); // 24 hours from now
+            $.cookie('purple-free-banner', "true", { expires: date });
+        });
+    }
   });
 })(jQuery);

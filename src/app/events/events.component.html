@@ -1,0 +1,35 @@
+<!-- src/app/events/events.component.html -->
+<div class="col-lg-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title" style="font-size: 50px; margin-bottom: 20px;">Events Calendar</h4>
+    </div>
+  </div>
+</div>
+<div class="calendar">
+  
+  <div class="month">
+    <span class="prev" (click)="changeMonth(-1)">&#10094;</span>
+    <span class="month-name">{{ monthNames[currentMonth] }} {{ currentYear }}</span>
+    <span class="next" (click)="changeMonth(1)">&#10095;</span>
+  </div>
+  <div class="weekdays">
+    <div *ngFor="let day of weekdays">{{ day }}</div>
+  </div>
+  <!-- Simplified for clarity -->
+<!-- ... other code ... -->
+<div class="days">
+  <div *ngFor="let dayObj of calendarDays" class="day"
+       [ngClass]="{'empty': !dayObj.inCurrentMonth, 'today': isToday(dayObj.day, dayObj.inCurrentMonth)}"
+       (click)="openEventForm(dayObj.day)">
+    <div class="date">{{ dayObj.day }}</div>
+    <div *ngFor="let event of dayObj.events" class="event-info" (click)="openEventForm(dayObj.day, event, $event)">
+      <div class="event-title">{{ event.title }}</div>
+      <!-- Use dateTime for displaying date and time -->
+      <div class="event-time" *ngIf="event.dateTime">{{ event.dateTime | date: 'shortTime' }}</div>
+    </div>
+  </div>
+</div>
+
+<app-event-form *ngIf="showEventModal && selectedEvent" [event]="selectedEvent" (eventCreated)="onEventCreated($event)" (formCancelled)="showEventModal = false"></app-event-form>
+</div>
